@@ -1,0 +1,251 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard FUST 2024-2025</title>
+<style>
+:root {
+  --ink: #172126;
+  --muted: #5b686f;
+  --line: #d9e0df;
+  --panel: #ffffff;
+  --bg: #f4f1ea;
+  --teal: #1f6f78;
+  --red: #b4464b;
+  --gold: #8b6f21;
+  --green: #4f6d38;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+header {
+  padding: 34px 42px 20px;
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: 0; }
+.subtitle { margin: 0; color: var(--muted); font-size: 15px; }
+main { max-width: 1180px; margin: 0 auto; padding: 26px 28px 44px; }
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.kpi {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+.kpi .label { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+.kpi .value { font-size: 24px; font-weight: 700; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+section {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+section.wide { grid-column: 1 / -1; }
+.chart { width: 100%; display: block; }
+.donut { width: 100%; display: block; min-height: 230px; }
+.chart-title { font-size: 18px; font-weight: 700; fill: var(--ink); }
+.chart-subtitle { font-size: 13px; fill: var(--muted); }
+.axis-label, .bar-value, .legend { font-size: 13px; fill: var(--ink); }
+.bar-bg { fill: #eef2f1; }
+.bar-fill { fill: var(--teal); }
+.donut-center { font-size: 22px; font-weight: 700; fill: var(--ink); }
+.donut-note { font-size: 12px; fill: var(--muted); }
+.insights { margin: 0; padding-left: 18px; color: var(--ink); line-height: 1.55; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { border-bottom: 1px solid var(--line); padding: 9px 8px; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 700; }
+@media (max-width: 900px) {
+  header { padding: 26px 22px 18px; }
+  main { padding: 20px 16px 34px; }
+  .kpis, .grid { grid-template-columns: 1fr; }
+  section.wide { grid-column: auto; }
+}
+</style>
+</head>
+<body>
+<header>
+<h1>FUST: contratos, juros e valor contratado</h1>
+<p class="subtitle">Comparativo dos contratos assinados em 2024 e 2025, com recortes por origem, UF, setor CNAE, inovaÃ§Ã£o e porte.</p>
+</header>
+<main>
+<div class="kpis">
+<div class="kpi"><div class="label">Contratos 2024</div><div class="value">38</div></div>
+<div class="kpi"><div class="label">Contratos 2025</div><div class="value">401</div></div>
+<div class="kpi"><div class="label">Valor 2024</div><div class="value">R$ 996.837.113</div></div>
+<div class="kpi"><div class="label">Valor 2025</div><div class="value">R$ 1.423.214.658</div></div>
+</div>
+<div class="grid">
+<section>
+<svg viewBox="0 0 860 188" class="chart" role="img" aria-label="Novos contratos por ano">
+<text x="0" y="24" class="chart-title">Novos contratos por ano</text>
+<text x="0" y="48" class="chart-subtitle">Quantidade de contratos assinados em cada ano</text>
+<text x="0" y="96" class="axis-label">2024</text>
+<rect x="210" y="74" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="74" width="50.2" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="96" class="bar-value">38</text>
+<text x="0" y="140" class="axis-label">2025</text>
+<rect x="210" y="118" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="118" width="530" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="140" class="bar-value">401</text>
+</svg>
+
+</section>
+<section>
+<svg viewBox="0 0 860 188" class="chart" role="img" aria-label="Valor contratado por ano">
+<text x="0" y="24" class="chart-title">Valor contratado por ano</text>
+<text x="0" y="48" class="chart-subtitle">Soma do valor contratado em 2024 e 2025</text>
+<text x="0" y="96" class="axis-label">2024</text>
+<rect x="210" y="74" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="74" width="371.2" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="96" class="bar-value">R$ 996.837.113</text>
+<text x="0" y="140" class="axis-label">2025</text>
+<rect x="210" y="118" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="118" width="530" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="140" class="bar-value">R$ 1.423.214.658</text>
+</svg>
+
+</section>
+<section>
+<svg viewBox="0 0 520 230" class="donut" role="img" aria-label="Composicao por origem">
+<text x="0" y="24" class="chart-title">Composicao por origem</text>
+<g transform="translate(95 122) rotate(-90)">
+<circle r="70" cx="0" cy="0" fill="none" stroke="#1f6f78" stroke-width="30" stroke-dasharray="105.196838286492 334.626133216079" stroke-dashoffset="-0"/>
+<circle r="70" cx="0" cy="0" fill="none" stroke="#b4464b" stroke-width="30" stroke-dasharray="334.626133216079 105.196838286492" stroke-dashoffset="-105.196838286492"/>
+</g>
+<text x="95" y="118" text-anchor="middle" class="donut-center">439</text>
+<text x="95" y="141" text-anchor="middle" class="donut-note">contratos</text>
+<rect x="210" y="66" width="12" height="12" fill="#1f6f78"/>
+<text x="232" y="78" class="legend">Direta - 23,92%</text>
+<rect x="210" y="92" width="12" height="12" fill="#b4464b"/>
+<text x="232" y="104" class="legend">Indireta automatica - 76,08%</text>
+</svg>
+
+</section>
+<section>
+<svg viewBox="0 0 520 230" class="donut" role="img" aria-label="Composicao por inovacao">
+<text x="0" y="24" class="chart-title">Composicao por inovacao</text>
+<g transform="translate(95 122) rotate(-90)">
+<circle r="70" cx="0" cy="0" fill="none" stroke="#1f6f78" stroke-width="30" stroke-dasharray="438.821096852223 1.00187465034753" stroke-dashoffset="-0"/>
+<circle r="70" cx="0" cy="0" fill="none" stroke="#b4464b" stroke-width="30" stroke-dasharray="1.00187465034754 438.821096852223" stroke-dashoffset="-438.821096852223"/>
+</g>
+<text x="95" y="118" text-anchor="middle" class="donut-center">439</text>
+<text x="95" y="141" text-anchor="middle" class="donut-note">contratos</text>
+<rect x="210" y="66" width="12" height="12" fill="#1f6f78"/>
+<text x="232" y="78" class="legend">Nao - 99,77%</text>
+<rect x="210" y="92" width="12" height="12" fill="#b4464b"/>
+<text x="232" y="104" class="legend">Sim - 0,23%</text>
+</svg>
+
+</section>
+<section class="wide">
+<svg viewBox="0 0 860 452" class="chart" role="img" aria-label="Top UF por valor contratado">
+<text x="0" y="24" class="chart-title">Top UF por valor contratado</text>
+<text x="0" y="48" class="chart-subtitle">Maiores UFs em 2024 e 2025 somados</text>
+<text x="0" y="96" class="axis-label">R</text>
+<rect x="210" y="74" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="74" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="96" class="bar-value">R$ 0</text>
+<text x="0" y="140" class="axis-label">A</text>
+<rect x="210" y="118" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="118" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="140" class="bar-value">R$ 0</text>
+<text x="0" y="184" class="axis-label">M</text>
+<rect x="210" y="162" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="162" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="184" class="bar-value">R$ 0</text>
+<text x="0" y="228" class="axis-label">D</text>
+<rect x="210" y="206" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="206" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="228" class="bar-value">R$ 0</text>
+<text x="0" y="272" class="axis-label">R</text>
+<rect x="210" y="250" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="250" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="272" class="bar-value">R$ 0</text>
+<text x="0" y="316" class="axis-label">M</text>
+<rect x="210" y="294" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="294" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="316" class="bar-value">R$ 0</text>
+<text x="0" y="360" class="axis-label">P</text>
+<rect x="210" y="338" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="338" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="360" class="bar-value">R$ 0</text>
+<text x="0" y="404" class="axis-label">S</text>
+<rect x="210" y="382" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="382" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="404" class="bar-value">R$ 0</text>
+</svg>
+
+</section>
+<section class="wide">
+<svg viewBox="0 0 860 188" class="chart" role="img" aria-label="Top setores CNAE por valor contratado">
+<text x="0" y="24" class="chart-title">Top setores CNAE por valor contratado</text>
+<text x="0" y="48" class="chart-subtitle">Maiores setores em 2024 e 2025 somados</text>
+<text x="0" y="96" class="axis-label">I</text>
+<rect x="210" y="74" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="74" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="96" class="bar-value">R$ 0</text>
+<text x="0" y="140" class="axis-label">C</text>
+<rect x="210" y="118" width="530" height="32" rx="4" class="bar-bg"/>
+<rect x="210" y="118" width="0" height="32" rx="4" class="bar-fill"/>
+<text x="754" y="140" class="bar-value">R$ 0</text>
+</svg>
+
+</section>
+<section>
+<svg viewBox="0 0 520 230" class="donut" role="img" aria-label="Composicao por porte">
+<text x="0" y="24" class="chart-title">Composicao por porte</text>
+<g transform="translate(95 122) rotate(-90)">
+<circle r="70" cx="0" cy="0" fill="none" stroke="#1f6f78" stroke-width="30" stroke-dasharray="239.448041433063 200.374930069508" stroke-dashoffset="-0"/>
+<circle r="70" cx="0" cy="0" fill="none" stroke="#b4464b" stroke-width="30" stroke-dasharray="122.2287073424 317.594264160171" stroke-dashoffset="-239.448041433063"/>
+<circle r="70" cx="0" cy="0" fill="none" stroke="#8b6f21" stroke-width="30" stroke-dasharray="72.134974825023 367.687996677548" stroke-dashoffset="-361.676748775463"/>
+<circle r="70" cx="0" cy="0" fill="none" stroke="#4f6d38" stroke-width="30" stroke-dasharray="6.01124790208525 433.811723600486" stroke-dashoffset="-433.811723600486"/>
+</g>
+<text x="95" y="118" text-anchor="middle" class="donut-center">439</text>
+<text x="95" y="141" text-anchor="middle" class="donut-note">contratos</text>
+<rect x="210" y="66" width="12" height="12" fill="#1f6f78"/>
+<text x="232" y="78" class="legend">M&#201;DIA - 54,44%</text>
+<rect x="210" y="92" width="12" height="12" fill="#b4464b"/>
+<text x="232" y="104" class="legend">PEQUENA - 27,79%</text>
+<rect x="210" y="118" width="12" height="12" fill="#8b6f21"/>
+<text x="232" y="130" class="legend">GRANDE - 16,40%</text>
+<rect x="210" y="144" width="12" height="12" fill="#4f6d38"/>
+<text x="232" y="156" class="legend">MICRO - 1,37%</text>
+</svg>
+
+</section>
+<section>
+<h2 style="font-size:18px;margin:0 0 12px;">Leituras rapidas</h2>
+<ul class="insights">
+<li>Em 2025 foram assinados +363 contratos em rela&#195;&#167;&#195;&#163;o a 2024.</li>
+<li>O valor contratado variou +R$ 426.377.545 de 2024 para 2025.</li>
+<li>A taxa m&#195;&#169;dia simples passou de 5,33% em 2024 para 8,98% em 2025.</li>
+<li>Na base consolidada, as origens observadas s&#195;&#163;o Direta e Indireta automatica; n&#195;&#163;o apareceram registros classificados como Indireta nao automatica.</li>
+</ul>
+</section>
+<section class="wide">
+<h2 style="font-size:18px;margin:0 0 12px;">Comparativo por origem</h2>
+<table><thead><tr><th>Origem</th><th>Contratos 2024</th><th>Contratos 2025</th><th>Delta</th><th>Valor 2024</th><th>Valor 2025</th><th>Delta valor</th></tr></thead><tbody>
+<tr><td>Direta</td><td>25</td><td>80</td><td>+55</td><td>R$ 978.036.928</td><td>R$ 951.504.841</td><td>R$ -26.532.087</td></tr>
+<tr><td>Indireta automatica</td><td>13</td><td>321</td><td>+308</td><td>R$ 18.800.185</td><td>R$ 471.709.817</td><td>+R$ 452.909.632</td></tr>
+</tbody></table>
+</section>
+</div>
+</main>
+</body></html>
+
