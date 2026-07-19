@@ -21,8 +21,24 @@ suppressPackageStartupMessages({
   invisible(lapply(pacotes, library, character.only = TRUE))
 })
 
-arquivo_entrada <- "C:/Github/BNDES FUST/data/Base de Operações_FUST (enviada).xlsx"
-arquivo_saida   <- "C:/Github/BNDES FUST/data/Base de Operações_FUST_compilada.xlsx"
+args <- commandArgs(trailingOnly = FALSE)
+script_path <- sub("^--file=", "", args[grepl("^--file=", args)])
+root_dir <- if (length(script_path) > 0) {
+  dirname(normalizePath(script_path))
+} else {
+  normalizePath(getwd())
+}
+
+arquivo_entrada <- file.path(
+  root_dir,
+  "data",
+  "Base de Operações_FUST_com_num_OPE_subcrédito.xlsx"
+)
+arquivo_saida <- file.path(
+  root_dir,
+  "data",
+  "Base de Operações_FUST_compilada.xlsx"
+)
 
 abas_entrada <- tibble(
   aba = c(1, 2),
@@ -154,6 +170,7 @@ normalizar_valor <- function(x) {
   x <- na_if(x, "")
   x <- na_if(x, "-")
   x <- na_if(x, "----------")
+  x <- if_else(str_to_upper(x) == "ND", NA_character_, x)
 
   x <- if_else(
     str_detect(x, ","),
@@ -273,6 +290,22 @@ ler_aba <- function(aba, origem_aba) {
 message("Lendo arquivo: ", arquivo_entrada)
 
 base_bruta <- pmap_dfr(abas_entrada, ler_aba)
+
+if ("numero_da_operacao" %in% names(base_bruta)) {
+  if ("numero_de_operacao" %in% names(base_bruta)) {
+    base_bruta <- base_bruta |>
+      mutate(
+        numero_de_operacao = coalesce(
+          as.character(numero_de_operacao),
+          as.character(numero_da_operacao)
+        )
+      ) |>
+      select(-numero_da_operacao)
+  } else {
+    base_bruta <- base_bruta |>
+      rename(numero_de_operacao = numero_da_operacao)
+  }
+}
 
 colunas_cnpj_base <- achar_colunas(
   base_bruta,
