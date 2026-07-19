@@ -1,0 +1,25 @@
+# Windows metadata
+desktop.ini
+Desktop.ini
+
+# Local data and generated analysis outputs
+data/
+analysis/outputs/
+**/outputs/
+**/logs/
+
+# Runtime caches
+**/__pycache__/
+*.py[cod]
+
+# Data and generated artifacts
+*.xlsx
+*.xls
+*.csv
+*.parquet
+*.rds
+*.RData
+*.png
+*.jpg
+*.jpeg
+*.html
