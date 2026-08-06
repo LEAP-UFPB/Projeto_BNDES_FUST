@@ -4,7 +4,9 @@ Desktop.ini
 
 # Local data and generated analysis outputs
 data/
-analysis/outputs/
+produto 2/archive_local/
+produto 2/analysis/
+produto 3/analysis/
 **/outputs/
 **/logs/
 
@@ -22,4 +24,15 @@ analysis/outputs/
 *.png
 *.jpg
 *.jpeg
+*.gif
+*.bmp
+*.tif
+*.tiff
+*.webp
+*.svg
 *.html
+*.feather
+*.fst
+*.dta
+*.sav
+*.zip

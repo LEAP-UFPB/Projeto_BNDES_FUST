@@ -1,0 +1,103 @@
+---
+title: "Replicação das análises do FUST BNDES"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r configuracao, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+# Objetivo
+
+Este repositório contém apenas o código e a documentação necessários para
+replicar as análises dos Produtos 2 e 3. As bases de dados e os resultados
+gerados — incluindo imagens, planilhas e arquivos intermediários — não são
+versionados.
+
+# Estrutura
+
+- `produto 2/code/`: scripts das análises descritivas e dos indicadores.
+- `produto 2/generate_produto_2.ps1`: executor da replicação do Produto 2.
+- `produto 3/code/`: scripts das estimações de diferenças em diferenças.
+- `data/`: bases locais de entrada, ignoradas pelo Git.
+- `produto 2/analysis/` e `produto 3/analysis/`: resultados locais, ignorados
+  pelo Git.
+
+# Requisitos
+
+A replicação foi organizada para Windows com PowerShell e R. Os pacotes de R
+necessários são verificados pelos próprios scripts. A base consolidada das
+operações deve ser disponibilizada localmente em:
+
+```text
+data/Base de Operações_FUST_compilada.xlsx
+```
+
+Outras bases restritas necessárias às análises devem ser colocadas em `data/`
+mantendo os nomes e a estrutura esperados pelos scripts. Nenhuma base deve ser
+adicionada ao controle de versão.
+
+# Produto 2
+
+Execute a partir da raiz do repositório:
+
+```{powershell produto2}
+powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File ".\produto 2\generate_produto_2.ps1"
+```
+
+O fluxo produz localmente, entre outros entregáveis finais:
+
+- Figuras 14 a 17, com as distribuições de juros, carência, amortização e prazo
+  total;
+- Tabelas 1 a 4 em formato XLSX;
+- figuras e quadros de desempenho operacional e indicadores utilizados no
+  documento final.
+
+Todos os resultados são gravados em `produto 2/analysis/`. Essa pasta é
+deliberadamente ignorada pelo Git.
+
+# Produto 3
+
+Os scripts do Produto 3 estão separados por etapa:
+
+- `produto 3/code/psm_did/`: pareamento e estimações de diferenças em
+  diferenças;
+- `produto 3/code/frequencias_pos_covid/`: construção e análise das frequências
+  mensais posteriores à pandemia.
+
+As instruções específicas e a ordem de execução encontram-se em
+`produto 3/README.md` e nos arquivos de documentação do próprio produto. Os
+resultados devem permanecer em `produto 3/analysis/`, também ignorada pelo Git.
+
+# Política de versionamento
+
+Devem ser enviados ao GitHub:
+
+- scripts de código;
+- arquivos Markdown e R Markdown;
+- arquivos de configuração necessários à replicação.
+
+Não devem ser enviados:
+
+- bases de dados;
+- imagens;
+- planilhas XLS/XLSX;
+- CSVs e demais resultados tabulares;
+- saídas HTML, logs, arquivos compactados e resultados intermediários.
+
+Antes de publicar, confira os arquivos que serão incluídos:
+
+```{powershell verificacao}
+git status --short
+git check-ignore -v "produto 2/analysis/arquivo.png"
+git check-ignore -v "data/Base de Operações_FUST_compilada.xlsx"
+```
