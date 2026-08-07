@@ -8,7 +8,7 @@ produto 2/archive_local/
 produto 2/analysis/
 produto 3/
 **/outputs/
-**/logs/
+**/logs/ 
 
 # Runtime caches
 **/__pycache__/
