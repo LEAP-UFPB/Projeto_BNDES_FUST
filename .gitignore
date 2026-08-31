@@ -37,14 +37,19 @@ produto 3/
 *.sav
 *.zip
 
-# Produto 3: códigos, documentação e entregáveis finais publicados
+# Produto 3: publicar somente os scripts
 !produto 3/
+produto 3/*
 !produto 3/code/
-!produto 3/code/*.R
-!produto 3/analysis/
-!produto 3/analysis/*.png
-!produto 3/analysis/*.xlsx
-!produto 3/relatorio/
-!produto 3/relatorio/*.tex
-!produto 3/relatorio/*.pdf
-!produto 3/*.md
+produto 3/code/*
+!produto 3/code/01 - Figuras principais.R
+!produto 3/code/02 - Heterogeneidades.R
+!produto 3/code/04 - Testes de robustez.R
+!produto 3/code/05 - Robustez especificacoes de matching.R
+!produto 3/code/06 - Robustez estimadores.R
+!produto 3/code/08 - Acessos banda larga fixa.R
+!produto 3/code/09 - Mapa amostra RAIS.R
+!produto 3/code/_common.R
+!produto 3/code/_extract_rais_matching_banda_larga.R
+!produto 3/code/acb_acessos.R
+!produto 3/code/acb_fibra.R
