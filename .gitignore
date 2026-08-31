@@ -36,3 +36,15 @@ produto 3/
 *.dta
 *.sav
 *.zip
+
+# Produto 3: códigos, documentação e entregáveis finais publicados
+!produto 3/
+!produto 3/code/
+!produto 3/code/*.R
+!produto 3/analysis/
+!produto 3/analysis/*.png
+!produto 3/analysis/*.xlsx
+!produto 3/relatorio/
+!produto 3/relatorio/*.tex
+!produto 3/relatorio/*.pdf
+!produto 3/*.md
