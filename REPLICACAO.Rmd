@@ -17,10 +17,10 @@ knitr::opts_chunk$set(
 
 # Objetivo
 
-Este repositório contém apenas o código e a documentação necessários para
-replicar as análises dos Produtos 2 e 3. As bases de dados e os resultados
-gerados — incluindo imagens, planilhas e arquivos intermediários — não são
-versionados.
+Este repositório contém o código e a documentação necessários para replicar as
+análises dos Produtos 2 e 3. As bases de dados e os resultados intermediários
+não são versionados. Como exceção, os entregáveis finais do Produto 3 são
+publicados para consulta direta.
 
 # Estrutura
 
@@ -28,8 +28,8 @@ versionados.
 - `produto 2/generate_produto_2.ps1`: executor da replicação do Produto 2.
 - `produto 3/code/`: scripts das estimações de diferenças em diferenças.
 - `data/`: bases locais de entrada, ignoradas pelo Git.
-- `produto 2/analysis/` e `produto 3/analysis/`: resultados locais, ignorados
-  pelo Git.
+- `produto 2/analysis/`: resultados locais, ignorados pelo Git.
+- `produto 3/analysis/`: 18 figuras e uma planilha final versionadas.
 
 # Requisitos
 
@@ -67,16 +67,16 @@ deliberadamente ignorada pelo Git.
 
 # Produto 3
 
-Os scripts do Produto 3 estão separados por etapa:
-
-- `produto 3/code/psm_did/`: pareamento e estimações de diferenças em
-  diferenças;
-- `produto 3/code/frequencias_pos_covid/`: construção e análise das frequências
-  mensais posteriores à pandemia.
+Os scripts finais do Produto 3 ficam diretamente em `produto 3/code/`, numerados
+de 01 a 07. O fluxo contempla a amostra principal, Callaway–Sant'Anna,
+heterogeneidades, balanceamento, robustez de inferência e matching, estimadores
+alternativos e HonestDiD.
 
 As instruções específicas e a ordem de execução encontram-se em
-`produto 3/README.md` e nos arquivos de documentação do próprio produto. Os
-resultados devem permanecer em `produto 3/analysis/`, também ignorada pelo Git.
+`produto 3/README.md`. Os resultados devem permanecer em
+`produto 3/analysis/`; os 19 entregáveis finais dessa pasta são versionados.
+O relatório interpretativo em PDF e sua fonte LaTeX ficam em
+`produto 3/relatorio/`.
 
 # Política de versionamento
 
@@ -84,14 +84,14 @@ Devem ser enviados ao GitHub:
 
 - scripts de código;
 - arquivos Markdown e R Markdown;
-- arquivos de configuração necessários à replicação.
+- arquivos de configuração necessários à replicação;
+- os entregáveis finais e o relatório do Produto 3.
 
 Não devem ser enviados:
 
 - bases de dados;
-- imagens;
-- planilhas XLS/XLSX;
-- CSVs e demais resultados tabulares;
+- imagens e planilhas que não pertençam ao conjunto final do Produto 3;
+- CSVs e demais resultados intermediários;
 - saídas HTML, logs, arquivos compactados e resultados intermediários.
 
 Antes de publicar, confira os arquivos que serão incluídos:
