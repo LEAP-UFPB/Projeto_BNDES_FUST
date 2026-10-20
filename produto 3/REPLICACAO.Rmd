@@ -1,0 +1,121 @@
+---
+title: "Replicação do Produto 3 — FUST BNDES"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+params:
+  executar: false
+---
+
+```{r configuracao, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = isTRUE(params$executar),
+  warning = FALSE,
+  message = FALSE
+)
+
+input_dir <- knitr::opts_knit$get("input.dir")
+if (is.null(input_dir)) {
+  input_dir <- dirname(knitr::current_input(dir = TRUE))
+}
+
+produto_dir <- normalizePath(
+  input_dir,
+  winslash = "/",
+  mustWork = TRUE
+)
+codigo_dir <- file.path(produto_dir, "code")
+resultados_dir <- file.path(produto_dir, "analysis")
+rscript <- file.path(R.home("bin"), "Rscript")
+
+dir.create(resultados_dir, recursive = TRUE, showWarnings = FALSE)
+
+executar_scripts <- function(nomes, diretorio = produto_dir) {
+  anterior <- setwd(diretorio)
+  on.exit(setwd(anterior), add = TRUE)
+
+  for (nome in nomes) {
+    caminho <- file.path(codigo_dir, nome)
+    if (!file.exists(caminho)) {
+      stop("Script de replicação ausente: ", nome)
+    }
+
+    status <- system2(rscript, shQuote(caminho))
+    if (!identical(status, 0L)) {
+      stop("Falha ao executar ", nome, ".")
+    }
+  }
+}
+```
+
+# Objetivo
+
+Este documento organiza a replicação dos resultados do Produto 3. As bases de
+entrada permanecem em `../data/` e todos os resultados são gravados localmente
+em `analysis/`. Nenhuma base, figura, tabela ou planilha gerada é versionada.
+
+Por padrão, os blocos abaixo são apenas exibidos. Para executar as análises,
+renderize o documento com `params = list(executar = TRUE)`.
+
+# Resultados principais
+
+O primeiro bloco atualiza a amostra oficial, estima os efeitos principais,
+produz as heterogeneidades e gera os mapas das empresas tratadas e controles.
+
+```{r resultados-principais}
+executar_scripts(c(
+  "01 - Figuras principais.R",
+  "02 - Heterogeneidades.R",
+  "09 - Mapa amostra RAIS.R"
+))
+```
+
+# Testes de robustez
+
+As especificações de matching, os estimadores alternativos e os demais testes
+usam os arquivos intermediários preparados pelo primeiro script.
+
+```{r robustez}
+executar_scripts(c(
+  "05 - Robustez especificacoes de matching.R",
+  "06 - Robustez estimadores.R",
+  "04 - Testes de robustez.R"
+))
+```
+
+# Acessos à banda larga
+
+Este bloco estima os efeitos dinâmicos sobre o estoque de acessos da Anatel. O
+auxiliar `_extract_rais_matching_banda_larga.R` é chamado automaticamente quando
+o cache necessário ainda não existe.
+
+```{r acessos-banda-larga}
+executar_scripts("08 - Acessos banda larga fixa.R")
+```
+
+# Análises de custo-benefício
+
+As ACBs usam caminhos relativos para suas saídas. Por isso, são executadas com
+`analysis/` como diretório de trabalho, gerando `analysis/tabelas_fibra/` e
+`analysis/tabelas_acb/`.
+
+```{r analises-custo-beneficio}
+executar_scripts(
+  c("acb_fibra.R", "acb_acessos.R"),
+  diretorio = resultados_dir
+)
+```
+
+# Execução alternativa
+
+O mesmo fluxo pode ser iniciado no PowerShell, a partir da raiz do repositório:
+
+```{powershell, eval=FALSE}
+powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File ".\produto 3\generate_produto_3.ps1"
+```
+
+A relação entre cada script e as figuras ou tabelas do documento final está em
+`FIGURAS_E_TITULOS.md`.

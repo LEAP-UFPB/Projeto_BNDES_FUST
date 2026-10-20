@@ -53,3 +53,7 @@ produto 3/code/*
 !produto 3/code/_extract_rais_matching_banda_larga.R
 !produto 3/code/acb_acessos.R
 !produto 3/code/acb_fibra.R
+!produto 3/README.md
+!produto 3/FIGURAS_E_TITULOS.md
+!produto 3/REPLICACAO.Rmd
+!produto 3/generate_produto_3.ps1
