@@ -45,7 +45,7 @@ rmarkdown::render(
 Por padrão, o documento é renderizado sem executar as análises. Defina
 `executar = TRUE` somente depois de disponibilizar as bases locais.
 
-## Scripts mantidos
+## Códigos de replicação
 
 - `01 - Figuras principais.R`
 - `02 - Heterogeneidades.R`
@@ -59,12 +59,6 @@ Por padrão, o documento é renderizado sem executar as análises. Defina
 
 Os arquivos `_common.R` e `_extract_rais_matching_banda_larga.R` são auxiliares
 necessários à execução.
-
-## Dados e resultados
-
-As bases de entrada ficam em `../data/`, mantendo os nomes esperados pelos
-scripts. Elas não devem ser adicionadas ao Git. Todos os arquivos gerados ficam
-em `analysis/` e também não são versionados.
 
 Consulte `FIGURAS_E_TITULOS.md` para localizar o script responsável por cada
 resultado utilizado no documento final.
