@@ -449,19 +449,20 @@ resumir <- function(df, ...) {
     group_by(...) |>
     summarise(
       contratos = n(),
+      juros_ponderado_numerador = sum(juros_numero * valor_contratado, na.rm = TRUE),
+      peso_juros = sum(if_else(!is.na(juros_numero), valor_contratado, 0), na.rm = TRUE),
       valor_contratado = sum(valor_contratado, na.rm = TRUE),
       valor_desembolsado = sum(valor_desembolsado, na.rm = TRUE),
       ticket_medio = valor_contratado / contratos,
       juros_medio = mean(juros_numero, na.rm = TRUE),
-      peso_juros = sum(if_else(!is.na(juros_numero), valor_contratado, 0), na.rm = TRUE),
       juros_medio_ponderado = if_else(
         peso_juros > 0,
-        sum(juros_numero * valor_contratado, na.rm = TRUE) / peso_juros,
+        juros_ponderado_numerador / peso_juros,
         NA_real_
       ),
       .groups = "drop"
     ) |>
-    select(-peso_juros)
+    select(-juros_ponderado_numerador, -peso_juros)
 }
 
 formatar_tabela <- function(df) {
