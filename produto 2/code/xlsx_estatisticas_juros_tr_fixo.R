@@ -116,6 +116,32 @@ montar_tabela <- function(df, variavel) {
 tabela_informada <- montar_tabela(base_juros, taxa_informada_pct)
 tabela_ajustada <- montar_tabela(base_juros, taxa_ajustada_pct)
 
+tabela_comparativa <- bind_rows(
+  tabela_informada |> mutate(`Valor considerado` = "1. Valor informado"),
+  tabela_ajustada |> mutate(`Valor considerado` = "2. Valor ajustado pela TR")
+) |>
+  mutate(
+    .ord_modalidade = match(Modalidade, c("Direta", "Indireta")),
+    .ord_tipo = match(`Tipo de taxa`, c("TR", "Taxa fixa")),
+    .ord_periodo = match(`Ano-safra`, c("2024", "2025", "2024–2025")),
+    .ord_valor = match(
+      `Valor considerado`,
+      c("1. Valor informado", "2. Valor ajustado pela TR")
+    )
+  ) |>
+  arrange(.ord_modalidade, .ord_tipo, .ord_periodo, .ord_valor) |>
+  select(
+    Modalidade,
+    `Tipo de taxa`,
+    `Ano-safra`,
+    `Valor considerado`,
+    everything(),
+    -.ord_modalidade,
+    -.ord_tipo,
+    -.ord_periodo,
+    -.ord_valor
+  )
+
 tabela_tr <- tr_mensal |>
   left_join(tr_safra, by = "ano") |>
   transmute(
@@ -156,35 +182,36 @@ escrever_tabela <- function(aba, titulo, dados, nota) {
   openxlsx::writeData(wb, aba, dados, startRow = 3, withFilter = FALSE)
   openxlsx::addStyle(wb, aba, estilo_cabecalho, rows = 3, cols = 1:ncol(dados))
   linhas <- 4:(3 + nrow(dados))
-  openxlsx::addStyle(wb, aba, estilo_inteiro, rows = linhas, cols = 4, gridExpand = TRUE)
-  openxlsx::addStyle(wb, aba, estilo_percentual, rows = linhas, cols = 5:10, gridExpand = TRUE)
+  coluna_observacoes <- match("Observações", names(dados))
+  colunas_percentuais <- which(str_detect(names(dados), "\\(%\\)$"))
+  openxlsx::addStyle(
+    wb, aba, estilo_inteiro,
+    rows = linhas, cols = coluna_observacoes, gridExpand = TRUE
+  )
+  openxlsx::addStyle(
+    wb, aba, estilo_percentual,
+    rows = linhas, cols = colunas_percentuais, gridExpand = TRUE
+  )
   linha_nota <- 5 + nrow(dados)
   openxlsx::writeData(wb, aba, nota, startRow = linha_nota)
   openxlsx::mergeCells(wb, aba, cols = 1:ncol(dados), rows = linha_nota)
   openxlsx::addStyle(wb, aba, estilo_nota, rows = linha_nota, cols = 1:ncol(dados))
   openxlsx::setColWidths(wb, aba, cols = 1:3, widths = c(15, 16, 14))
-  openxlsx::setColWidths(wb, aba, cols = 4:10, widths = 18)
+  openxlsx::setColWidths(wb, aba, cols = 4, widths = 26)
+  openxlsx::setColWidths(wb, aba, cols = 5:ncol(dados), widths = 18)
   openxlsx::setRowHeights(wb, aba, rows = linha_nota, heights = 45)
   openxlsx::freezePane(wb, aba, firstActiveRow = 4)
 }
 
 escrever_tabela(
-  "Taxas informadas",
-  "Estatísticas descritivas das taxas informadas na base",
-  tabela_informada,
+  "Comparativo",
+  "Taxas informadas e ajustadas pela TR do ano-safra",
+  tabela_comparativa,
   paste(
-    "Nas operações indexadas à TR, a coluna juros é interpretada como spread contratual.",
+    "Cada grupo apresenta primeiro o valor informado e depois o valor ajustado.",
+    "Para operações TR: taxa ajustada = spread informado + TR acumulada no ano-safra;",
+    "para taxa fixa, os valores informado e ajustado são iguais.",
     "Não há operações com taxa fixa no apoio direto em 2024–2025."
-  )
-)
-
-escrever_tabela(
-  "Taxas com TR da safra",
-  "Estatísticas descritivas com incorporação da TR do ano-safra",
-  tabela_ajustada,
-  paste(
-    "Racionalidade: para operações TR, taxa estimada = spread informado + TR acumulada no ano-safra;",
-    "para taxa fixa, o valor informado é mantido."
   )
 )
 
