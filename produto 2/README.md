@@ -21,10 +21,11 @@ O executor roda, nesta ordem:
 1. scripts das Figuras 1–13, sobre desempenho operacional;
 2. `fig_juros_e_prazo_total.R`;
 3. `xlsx_juros_direto_indireto.R`;
-4. `quadro_resultados_analises.R`;
-5. `gerar_quadros_teoria_mudanca.R` — gera os Quadros 2 a 5, para apoio direto e indireto;
-6. `finalizar_outputs.R` — garante transparência real nos PNGs;
-7. `gerar_indice_figuras.R` — relaciona código, figura, título e arquivo.
+4. `xlsx_estatisticas_juros_tr_fixo.R` — gera as estatísticas das taxas informadas e a tabela com TR acumulada por ano-safra;
+5. `quadro_resultados_analises.R`;
+6. `gerar_quadros_teoria_mudanca.R` — gera os Quadros 2 a 5, para apoio direto e indireto;
+7. `finalizar_outputs.R` — garante transparência real nos PNGs;
+8. `gerar_indice_figuras.R` — relaciona código, figura, título e arquivo.
 
 Ao final, o executor achata os resultados em `analysis/`, remove arquivos auxiliares
 e mantém somente entregáveis numerados com os títulos do documento.

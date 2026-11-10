@@ -24,7 +24,7 @@ suppressPackageStartupMessages({
 args <- commandArgs(trailingOnly = FALSE)
 script_path <- sub("^--file=", "", args[grepl("^--file=", args)])
 root_dir <- if (length(script_path) > 0) {
-  dirname(normalizePath(script_path))
+  dirname(dirname(dirname(normalizePath(script_path))))
 } else {
   normalizePath(getwd())
 }

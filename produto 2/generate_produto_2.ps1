@@ -31,6 +31,7 @@ $replicationScripts = @(
     'map_valor_contratado_por_uf.R',
     'fig_juros_e_prazo_total.R',
     'xlsx_juros_direto_indireto.R',
+    'xlsx_estatisticas_juros_tr_fixo.R',
     'quadro_resultados_analises.R',
     'gerar_quadros_teoria_mudanca.R',
     'finalizar_outputs.R'
