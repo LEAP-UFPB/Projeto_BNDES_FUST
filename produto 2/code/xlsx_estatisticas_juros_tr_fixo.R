@@ -77,6 +77,15 @@ resumir_taxa <- function(df, variavel, periodo) {
       primeiro_quartil = quantile({{ variavel }}, 0.25, names = FALSE),
       mediana = median({{ variavel }}),
       media = mean({{ variavel }}),
+      peso_media = sum(
+        if_else(is.finite(valor_contratado), valor_contratado, 0),
+        na.rm = TRUE
+      ),
+      media_ponderada = if_else(
+        peso_media > 0,
+        sum({{ variavel }} * valor_contratado, na.rm = TRUE) / peso_media,
+        NA_real_
+      ),
       terceiro_quartil = quantile({{ variavel }}, 0.75, names = FALSE),
       maximo = max({{ variavel }}),
       .groups = "drop"
@@ -108,6 +117,7 @@ montar_tabela <- function(df, variavel) {
       `1º quartil (%)` = primeiro_quartil,
       `Mediana (%)` = mediana,
       `Média (%)` = media,
+      `Média ponderada (%)` = media_ponderada,
       `3º quartil (%)` = terceiro_quartil,
       `Máximo (%)` = maximo
     )
@@ -211,6 +221,7 @@ escrever_tabela(
     "Cada grupo apresenta primeiro o valor informado e depois o valor ajustado.",
     "Para operações TR: taxa ajustada = spread informado + TR acumulada no ano-safra;",
     "para taxa fixa, os valores informado e ajustado são iguais.",
+    "A média ponderada utiliza o valor contratado de cada subcrédito como peso.",
     "Não há operações com taxa fixa no apoio direto em 2024–2025."
   )
 )
